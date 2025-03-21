@@ -1,0 +1,22 @@
+user {
+    	id : string
+    	name : string
+    	email : string
+    	password: string
+    	image : string,
+	message : {
+		id : string
+    		description : string
+		adressee : string id
+    		created : datetime
+		adresseetype : enum(group, user) string
+	}
+}
+
+group {
+    	id : string
+    	name : string
+    	users : user []
+	created: datetime
+}
+

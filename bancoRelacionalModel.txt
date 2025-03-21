@@ -1,0 +1,31 @@
+user {
+    id : int
+    name : string
+    email : string
+    password: string
+    image : string
+}
+
+message {
+    id : int
+    idUser : fk int
+    message : description
+    created : datetime
+}
+
+groupUser {
+    id : int
+    idGroup : fk int
+    idUser : fh int
+}
+
+group {
+    id : int
+    name : string
+}
+
+groupMessage {
+    id : int
+    idGroup : fk int
+    idMessage : fk int
+}

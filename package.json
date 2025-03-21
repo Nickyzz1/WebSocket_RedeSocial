@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "websocketserver": "^1.0.0"
+  }
+}
