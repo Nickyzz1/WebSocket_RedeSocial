@@ -4,6 +4,9 @@ import CryptoJS from 'crypto-js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { iUser } from '../dto/user.ts';
+import { registerService } from '../service/authService.ts';
+import { loginService } from '../service/authService.ts';
+
 
 dotenv.config();
 
@@ -11,56 +14,20 @@ export const register = async (req: Request, res: Response) => {
     const user : iUser = req.body;
 
     try {
-        const passHash = CryptoJS.AES.encrypt(user.password, process.env.SECRET as string).toString();
-
-        const newUser = new user({
-            name : user.image,
-            email: user.email,
-            password: passHash,
-            image : user.image,
-        });
-
-        await newUser.save();
-        res.status(201).json(newUser);
+        await registerService(user)
+        res.status(201).send('User criado com sucesso!')
     } catch (error) {
-        res.status(400).json({ message: 'Erro ao criar usuário: ', error });
+        res.status(500).json({ message: 'Erro ao criar usuário: ', error });
     }
-};
-
+}
 
 export const login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
-    console.log("chegou aqui");
-
-
-    const user = await user.findOne({ email });
-
-    if(!user)
-        return res.status(400).send({ message: "Email ou senha inválidos" });
-
-    const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET as string);
-    const decryptedPass = bytes.toString(CryptoJS.enc.Utf8);
-
-    const secret = process.env.SECRET;
-    
-    if(secret) {
-        const token = jwt.sign(
-            {
-                id: user.id,
-            },
-            secret,
-            {
-                expiresIn: '2 days',
-            }
-        )
-    
-        if (decryptedPass != password)
-            return res.status(400).send({ message: "Email ou senha inválidos" });
-    
-    
-        else
-            return res.status(200).send({ token: token});
+    try {
+        const token = await loginService(req.body)
+        res.status(201)
+        res.set("Authorization", `Bearer ${token}`).status(200).json({ message: "Login bem-sucedido!" });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro ao logar usuário: ', error });
     }
-
 }
 
