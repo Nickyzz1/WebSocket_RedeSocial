@@ -4,8 +4,10 @@ export enum AdresseeType {
     group = "group"
 }
 export interface iMessage {
+    id : string,
     description : string,
     adressee : string,
     created : Date,
-    adresseeType : AdresseeType
+    adresseeType : AdresseeType,
+    image : string
 }

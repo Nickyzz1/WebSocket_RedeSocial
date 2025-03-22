@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from 'express';
-import User from '../models/User.ts';
+import user from '../models/userModel.ts';
 import CryptoJS from 'crypto-js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
@@ -13,12 +13,11 @@ export const register = async (req: Request, res: Response) => {
     try {
         const passHash = CryptoJS.AES.encrypt(user.password, process.env.SECRET as string).toString();
 
-        const newUser = new User({
+        const newUser = new user({
             name : user.image,
             email: user.email,
             password: passHash,
             image : user.image,
-            message : user.message
         });
 
         await newUser.save();
@@ -34,7 +33,7 @@ export const login = async (req: Request, res: Response) => {
     console.log("chegou aqui");
 
 
-    const user = await User.findOne({ email });
+    const user = await user.findOne({ email });
 
     if(!user)
         return res.status(400).send({ message: "Email ou senha inválidos" });

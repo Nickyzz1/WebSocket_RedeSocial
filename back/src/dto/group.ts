@@ -1,7 +1,7 @@
-import { iUser } from "./user.ts"
-
 export interface iGroup {
+    id: string,
     name : string,
-    users : iUser[],
-    created : Date
+    admin : string, // id of admin
+    members : string[], // id of users
+    createdAt : Date
 }
