@@ -1,0 +1,14 @@
+Rede meow
+Requisitos funcionais User
+- se cadastrar
+- logar-se
+- editar suas informações
+- ter foto de perfil
+- Seguir pessoas
+- postar fotos ou frases
+- curtir fotos e frases
+- comentar em fotos e frases
+- ver perfil das pessoas
+- ver perfil se privado apenas se seguir
+- fazer chat privado com pessoas que segue e não segue
+- fazer chat em grupo com pessoas que segue e não segue
