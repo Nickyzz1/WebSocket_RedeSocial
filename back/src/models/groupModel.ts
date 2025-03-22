@@ -14,6 +14,6 @@ const groupSchema : Schema = new Schema({
     createdAt: { type: Date, require: true },
 });
 
-const group = mongoose.model<IGroup>('GroupTb', groupSchema);
+const Group = mongoose.model<IGroup>('GroupTb', groupSchema);
 
-export default group; 
+export default Group; 

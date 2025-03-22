@@ -29,6 +29,6 @@ const postSchema: Schema = new Schema({
     comments: {type: [commentSchema], require: false}
 });
 
-const post = mongoose.model<IPost>('PostTb', postSchema);
+const Post = mongoose.model<IPost>('PostTb', postSchema);
 
-export default post;
+export default Post;

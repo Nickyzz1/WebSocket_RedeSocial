@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from 'express';
-import user from '../models/userModel.ts';
+import User from '../models/userModel.ts';
 import CryptoJS from 'crypto-js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';

@@ -16,6 +16,6 @@ const storySchema : Schema = new Schema({
     expiresAt: { type: Date, require: true },
 });
 
-const story = mongoose.model<IStory>('StoryTb', storySchema);
+const Story = mongoose.model<IStory>('StoryTb', storySchema);
 
-export default story; 
+export default Story; 

@@ -16,6 +16,6 @@ const messageSchema : Schema = new Schema({
     image: { type: String, require: false },
 });
 
-const message = mongoose.model<IMessage>('MessageTb', messageSchema);
+const Message = mongoose.model<IMessage>('MessageTb', messageSchema);
 
-export default message; 
+export default Message; 
