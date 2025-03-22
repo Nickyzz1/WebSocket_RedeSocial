@@ -1,31 +1,62 @@
-user {
-    id : int
-    name : string
-    email : string
-    password: string
-    image : string
-}
+Tabela: users (Usuários)
+- id (UUID, PRIMARY KEY)
+- name (VARCHAR(100), NOT NULL)
+- email (VARCHAR(255), UNIQUE, NOT NULL)
+- password (TEXT, NOT NULL) -- Deve ser armazenada de forma hash
+- image (TEXT) -- URL da foto de perfil (opcional)
+- created_at (TIMESTAMP, DEFAULT NOW())
 
-message {
-    id : int
-    idUser : fk int
-    message : description
-    created : datetime
-}
+Tabela: followers (Relacionamento de seguidores)
+- follower_id (UUID, FOREIGN KEY -> users(id), ON DELETE CASCADE)
+- following_id (UUID, FOREIGN KEY -> users(id), ON DELETE CASCADE)
+- PRIMARY KEY (follower_id, following_id)
 
-groupUser {
-    id : int
-    idGroup : fk int
-    idUser : fh int
-}
+Tabela: groups (Grupos)
+- id (UUID, PRIMARY KEY)
+- name (VARCHAR(100), NOT NULL)
+- admin_id (UUID, FOREIGN KEY -> users(id), ON DELETE CASCADE)
+- created_at (TIMESTAMP, DEFAULT NOW())
 
-group {
-    id : int
-    name : string
-}
+Tabela: group_members (Membros dos grupos)
+- group_id (UUID, FOREIGN KEY -> groups(id), ON DELETE CASCADE)
+- user_id (UUID, FOREIGN KEY -> users(id), ON DELETE CASCADE)
+- PRIMARY KEY (group_id, user_id)
 
-groupMessage {
-    id : int
-    idGroup : fk int
-    idMessage : fk int
-}
+Tabela: messages (Mensagens privadas ou em grupo)
+- id (UUID, PRIMARY KEY)
+- sender_id (UUID, FOREIGN KEY -> users(id), NOT NULL)
+- receiver_id (UUID, NULL) -- ID do destinatário (usuário ou NULL se for para grupo)
+- group_id (UUID, NULL, FOREIGN KEY -> groups(id)) -- Se for uma mensagem de grupo
+- message (TEXT, NOT NULL)
+- image (TEXT) -- URL de uma imagem opcional
+- created_at (TIMESTAMP, DEFAULT NOW())
+
+Tabela: posts (Publicações)
+- id (UUID, PRIMARY KEY)
+- title (VARCHAR(255), NULL) -- Pode ser um post só com imagem
+- content (TEXT, NULL) -- Texto do post (opcional)
+- image (TEXT, NULL) -- URL de uma imagem no post (opcional)
+- user_id (UUID, FOREIGN KEY -> users(id), NOT NULL)
+- visibility (ENUM('public', 'private'), DEFAULT 'public') -- Controle de privacidade
+- created_at (TIMESTAMP, DEFAULT NOW())
+
+Tabela: post_likes (Curtidas nos posts)
+- user_id (UUID, FOREIGN KEY -> users(id), NOT NULL)
+- post_id (UUID, FOREIGN KEY -> posts(id), NOT NULL)
+- PRIMARY KEY (user_id, post_id)
+
+Tabela: comments (Comentários nas publicações)
+- id (UUID, PRIMARY KEY)
+- post_id (UUID, FOREIGN KEY -> posts(id), NOT NULL)
+- user_id (UUID, FOREIGN KEY -> users(id), NOT NULL)
+- description (TEXT, NOT NULL)
+- likes (INT, DEFAULT 0)
+- created_at (TIMESTAMP, DEFAULT NOW())
+
+Tabela: stories (Stories)
+- id (UUID, PRIMARY KEY)
+- user_id (UUID, FOREIGN KEY -> users(id), NOT NULL)
+- image (TEXT, NOT NULL)
+- created_at (TIMESTAMP, DEFAULT NOW())
+- expires_at (TIMESTAMP) -- Data de expiração do story (ex: +24h)
+

@@ -1,4 +1,4 @@
-Rede meow
+Rede social Meow
 Requisitos funcionais User
 - se cadastrar
 - logar-se
@@ -6,9 +6,15 @@ Requisitos funcionais User
 - ter foto de perfil
 - Seguir pessoas
 - postar fotos ou frases
+- postar stories
 - curtir fotos e frases
 - comentar em fotos e frases
 - ver perfil das pessoas
 - ver perfil se privado apenas se seguir
 - fazer chat privado com pessoas que segue e não segue
 - fazer chat em grupo com pessoas que segue e não segue
+
+requisitos não funcionais
+- modo escuro
+- segurança de acesso
+- token

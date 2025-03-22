@@ -1,22 +1,76 @@
-user {
-    	id : string
-    	name : string
-    	email : string
-    	password: string
-    	image : string,
-	message : {
-		id : string
-    		description : string
-		adressee : string id
-    		created : datetime
-		adresseetype : enum(group, user) string
-	}
+user  {
+  "id": "string",
+  "name": "string",
+  "email": "string",
+  "password": "hashed_string",
+  "image": "string (URL ou base64)",
+  "followers": ["string (id)"],
+  "following": ["string (id)"],
+  "privacy" : "int"
+}
+
+
+message {
+	id : string
+	user : id user fk
+    	description : string
+	adressee : string id
+    	created : datetime
+	adresseetype : enum(group, user) string
+	image : string
 }
 
 group {
-    	id : string
-    	name : string
-    	users : user []
-	created: datetime
+  "id": "string",
+  "name": "string",
+  "admin": "string (id do usuário dono)",
+  "members": ["string (id dos usuários)"],
+  "createdAt": "datetime"
 }
+
+
+post {
+  "id": "string",
+  "title": "string",
+  "content": "string",
+  "image": "string (URL)",
+  "userId": "string (id do usuário dono do post)",
+  "likes": ["string (id dos usuários que curtiram)"],
+  "comments": [
+    {
+      "id": "string",
+      "description": "string",
+      "likes": "int",
+      "userId": "string (id do usuário que comentou)",
+      "createdAt": "datetime"
+    }
+  ],
+  "visibility": "enum(public(0), private(1))",
+  "createdAt": "datetime"
+}
+
+	comments {
+		description : string
+		like : int
+		userCommented : string id fk
+	}
+	created : string
+}
+
+story {
+  "id": "string",
+  "image": "string (URL)",
+  "userId": "string (id do usuário dono do story)",
+  "createdAt": "datetime",
+  "expiresAt": "datetime"
+}
+
+
+
+
+
+
+
+
+
 
