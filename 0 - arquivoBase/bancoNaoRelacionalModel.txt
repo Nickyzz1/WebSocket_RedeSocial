@@ -49,20 +49,14 @@ post {
   "createdAt": "datetime"
 }
 
-	comments {
-		description : string
-		like : int
-		userCommented : string id fk
-	}
-	created : string
-}
 
 story {
   "id": "string",
   "image": "string (URL)",
   "userId": "string (id do usuário dono do story)",
   "createdAt": "datetime",
-  "expiresAt": "datetime"
+  "expiresAt": "datetime",
+  "mentions" : "string" (id users mencionados)
 }
 
 

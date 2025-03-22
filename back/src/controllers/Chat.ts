@@ -4,8 +4,11 @@ import { iMessage } from "../dto/message.ts";
 
 export const createMessage = async(req: Request, res: Response) => {
     try {
-        await chatService.saveMessage(req.body);
-        res.status(201).send("Mensagem criada com sucesso")
+        const token = req.get("Authorization")?.split(" ")[1];  // "Bearer <token>"
+        if(token) {
+            await chatService.saveMessage(req.body, token);
+            res.status(201).send("Mensagem criada com sucesso")
+        }
     } catch (error) {
         res.status(500).send("Erro no servidor")
     }
