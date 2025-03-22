@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Button, Input } from "@mui/material";
 import Link from "next/link";
 import { routes } from "@/constants/routes";
-import pokemon from '../../../public/pokemonRemove.png';
+// import pokemon from '../../../public/pokemonRemove.png';
 import { useState } from "react";
 
 export default function register() {
